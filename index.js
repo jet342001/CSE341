@@ -13,6 +13,7 @@ const ta03Routes = require("./routes/ta03");
 const ta04Routes = require("./routes/ta04");
 const pr08Routes = require("./routes/pr08");
 const pr09Routes = require("./routes/pr09");
+const pr10Routes = require("./routes/pr10");
 
 app
   .use(express.static(path.join(__dirname, "public")))
@@ -25,6 +26,9 @@ app
   .use("/ta04", ta04Routes)
   .use("/pr08", pr08Routes)
   .use("/pr09", pr09Routes)
+  .use(bodyParser.json())
+  .use("/pr10", pr10Routes)
+
   .get("/", (req, res, next) => {
     // This is the primary index, always handled last.
     res.render("pages/index", {
