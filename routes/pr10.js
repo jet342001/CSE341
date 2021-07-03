@@ -17,6 +17,7 @@ router.get("/fetchAll", (req, res, next) => {
 
 router.post("/insert", (req, res, next) => {
   //console.log("you reached the insert path");
+  console.log("insert was coalled");
   if (req.body.newName !== undefined) {
     const newName = req.body.newName;
 

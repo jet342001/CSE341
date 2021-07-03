@@ -1,3 +1,11 @@
+// Initialize socket.io
+const socket = io("/");
+
+// Repopulate the list when the server broadcasts an event
+socket.on("update-list", () => {
+  populateList();
+});
+
 const populateList = () => {
   const nameList = document.getElementById("nameList");
 
@@ -20,6 +28,7 @@ const populateList = () => {
 };
 
 const submitName = () => {
+  console.log("test");
   const newName = document.getElementById("newName").value; // Grab the value of our new name
 
   fetch("pr10/insert", {
@@ -36,6 +45,9 @@ const submitName = () => {
 
       // Repopulate the list with our new name added
       populateList();
+
+      // Tell the server to broadcast changes to other users
+      socket.emit("new-name");
     })
     .catch((err) => {
       // Clear the input
@@ -46,3 +58,4 @@ const submitName = () => {
 
 // Initialize the list
 populateList();
+document.getElementById("addButton").addEventListener("click", submitName());

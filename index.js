@@ -14,6 +14,7 @@ const ta04Routes = require("./routes/ta04");
 const pr08Routes = require("./routes/pr08");
 const pr09Routes = require("./routes/pr09");
 const pr10Routes = require("./routes/pr10");
+const { Socket } = require("dgram");
 
 app
   .use(express.static(path.join(__dirname, "public")))
@@ -39,5 +40,16 @@ app
   .use((req, res, next) => {
     // 404 page
     res.render("pages/404", { title: "404 - Page Not Found", path: req.url });
-  })
-  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+  });
+
+const server = app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+const io = require("socket.io")(server);
+io.on("connection", (socket) => {
+  console.log("Client connected");
+
+  socket.on("new-name", () => {
+    // Someone added a name! Tell everyone else to update the list.
+    console.log("someone update the list");
+    socket.broadcast.emit("update-list");
+  });
+});

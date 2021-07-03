@@ -11,12 +11,13 @@
     <h2>Submit a name</h2>
     <div class="actions_container">
         <input type="text" id="newName">
-        <button id="submitName" onclick="submitName()">Submit</button>
+        <button type="button" id="addButton" onclick="submitName()">Submit</button>
     </div>
 </div>
 <!--NOTE: Declare script here.
     Entire HTML page should be allowed to load
     before executing javascript.-->
+<script src="/socket.io/socket.io.js"></script>
 <script src="/scripts/pr10-local.js"> </script>
 </body>
 </html>
